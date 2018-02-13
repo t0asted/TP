@@ -19,9 +19,15 @@ public class PlayerMovement : MonoBehaviour {
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
+        
+
+        if (Input.GetKeyDown (KeyCode.Space))
+        {
+            moveVertical *= JumpSpeed;
+        }
+
+
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
-        Vector2 jump = new Vector2(0,moveVertical);
         rb2d.AddForce(movement * PlayerSpeed);
-        rb2d.AddForce(jump * JumpSpeed);
     }
 }
