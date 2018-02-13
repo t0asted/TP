@@ -13,17 +13,14 @@ public class PlayerInteract : MonoBehaviour
 	
 	void Update ()
     {
-        if (Input.GetKeyDown("e") && Des == true)
-        {
-            
-        }
+        
     }
 
     private void OnCollisionEnter2D (Collision2D col)
     {
         if(col.gameObject.tag == "Chest")
         {
-            Des = true;
+            Destroy (col.gameObject);
         }
     }
 }
