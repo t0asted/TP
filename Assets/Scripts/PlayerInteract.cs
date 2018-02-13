@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
-    private bool CanChop = false;
+    private bool CanInteract = false;
 
     GameObject ObjectColliding;
     GameObject Tree;
@@ -24,10 +24,16 @@ public class PlayerInteract : MonoBehaviour
             Destroy(ObjectColliding);
         }
 
-        if(Input.GetMouseButtonDown(0) && CanChop != false)
+        if(Input.GetMouseButtonDown(0) && CanInteract != false)
         {
             StartCoroutine("MyMethod");
         }
+        
+        if(Input.GetMouseButtonUp(0))
+        {
+            StopCoroutine("MyMethod");
+        }
+        
     }
 
     private void OnCollisionEnter2D(Collision2D col)
@@ -41,15 +47,15 @@ public class PlayerInteract : MonoBehaviour
         if( col.gameObject.tag == "Tree")
         {
             Tree = col.gameObject;
-            
-            CanChop = true;
-            Debug.Log("Can Chop");
+            Debug.Log(ObjectColliding);
+            CanInteract = true;
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         ObjectColliding = null;
-        CanChop = false;
+        CanInteract = false;
+        StopCoroutine("MyMethod");
     }
 }
