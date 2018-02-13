@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class PlayInteract : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
 		
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
+	void Update ()
+    {
+		if (Input.GetKeyDown ("E"))
+        {
+            Destroy(GameObject.FindWithTag("Chest"));
+        }
 	}
 }
