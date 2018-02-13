@@ -17,23 +17,23 @@ public class PlayerInteract : MonoBehaviour
         Debug.Log("After waiting for 2 seconds");
     }
 
-    void Update ()
+    void Update()
     {
-        if(Input.GetKeyDown("e") && ObjectColliding != null)
+        if (Input.GetKeyDown("e") && ObjectColliding != null)
         {
             Destroy(ObjectColliding);
         }
 
-        if(Input.GetMouseButtonDown(0) && CanInteract != false)
+        if (Input.GetMouseButtonDown(0) && CanInteract != false)
         {
             StartCoroutine("MyMethod");
         }
-        
-        if(Input.GetMouseButtonUp(0))
+
+        if (Input.GetMouseButtonUp(0))
         {
             StopCoroutine("MyMethod");
         }
-        
+
     }
 
     private void OnCollisionEnter2D(Collision2D col)
@@ -44,11 +44,19 @@ public class PlayerInteract : MonoBehaviour
             Debug.Log(ObjectColliding);
         }
 
-        if( col.gameObject.tag == "Tree")
+        if (col.gameObject.tag == "Tree")
         {
             Tree = col.gameObject;
             Debug.Log(ObjectColliding);
             CanInteract = true;
+        }
+
+        if (col.gameObject.tag == "Item")
+        {
+            if(this.gameObject.GetComponent<PlayerController>().PlayerData.Inventory.AddInvItem(col.gameObject.GetComponent<Item_Data>().ItemData))
+            {
+                Destroy(col.gameObject);
+            }
         }
     }
 

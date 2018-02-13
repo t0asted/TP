@@ -2,17 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour {
+public class GameController : MonoBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
 
 //GameData
@@ -24,8 +16,9 @@ public class GameData
 //PlayerData
 public class PlayerData
 {
-    public string Name;
-    public PlayerLevels Levels;
+    public string Name = "Name";
+    public PlayerLevels Levels = new PlayerLevels();
+    public Inventory Inventory = new Inventory();
 }
 
 public class PlayerLevels
@@ -60,7 +53,7 @@ public class PlayerLevels
 
     int CalculateLevel(int XP)
     {
-        if(XP / 10 < 1)
+        if (XP / 10 < 1)
         {
             return 1;
         }
@@ -69,9 +62,65 @@ public class PlayerLevels
     }
 
     public enum Level
-{
-    Combat,
-    WoodCutting,
-    Mining
+    {
+        Combat,
+        WoodCutting,
+        Mining
+    }
 }
+
+public class Inventory
+{
+    public bool LimitedStorage = true;
+    public int StorageLimit = 1;
+    public List<ItemData> CurrentInv = new List<ItemData>();
+
+    public bool AddInvItem(ItemData ItemToAdd)
+    {
+        if (CheckCanStore())
+        {
+            for (int EachListItem = 0; EachListItem < CurrentInv.Count; EachListItem++)
+            {
+                if (CurrentInv[EachListItem].Name == ItemToAdd.Name)
+                {
+                    CurrentInv[EachListItem].Quantity++;
+                }
+                else
+                {
+                    CurrentInv.Add(ItemToAdd);
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    bool CheckCanStore()
+    {
+        //check if storage full
+        return true;
+    }
+
+    public void RemoveItem(ItemData ItemToAdd)
+    {
+
+    }
+}
+
+[System.Serializable]
+public class ItemData
+{
+    public string Name;
+    public int Weight;
+    public string Info;
+    public int Quantity;
+
+    public ItemData()
+    {
+        Name = "Nothing";
+        Weight = 1;
+        Info = "Some info about the item!";
+        Quantity = 1;
+    }
+
 }

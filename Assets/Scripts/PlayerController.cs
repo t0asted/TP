@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     //PlayerData
-    public PlayerData PlayerData;
+    public PlayerData PlayerData = new PlayerData();
 
     Rigidbody2D myRB;
     bool FacingRight = true;
