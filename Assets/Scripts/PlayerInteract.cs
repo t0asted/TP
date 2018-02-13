@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayInteract : MonoBehaviour {
+public class PlayerInteract : MonoBehaviour
+{
+    private bool Des = false;
 
 	void Start ()
     {
@@ -11,9 +13,17 @@ public class PlayInteract : MonoBehaviour {
 	
 	void Update ()
     {
-		if (Input.GetKeyDown ("E"))
+        if (Input.GetKeyDown("e") && Des == true)
         {
-            Destroy(GameObject.FindWithTag("Chest"));
+            
         }
-	}
+    }
+
+    private void OnCollisionEnter2D (Collision2D col)
+    {
+        if(col.gameObject.tag == "Chest")
+        {
+            Des = true;
+        }
+    }
 }
