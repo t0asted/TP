@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
-    private bool Des = false;
+    private bool CanChop = false;
 
     GameObject ObjectColliding;
-	
-	void Update ()
+    GameObject Tree;
+
+
+    IEnumerator MyMethod()
+    {
+        Debug.Log("Before Waiting for 2 seconds");
+        yield return new WaitForSeconds(2);
+        Debug.Log("After waiting for 2 seconds");
+    }
+
+    void Update ()
     {
         if(Input.GetKeyDown("e") && ObjectColliding != null)
         {
             Destroy(ObjectColliding);
+        }
+
+        if(Input.GetMouseButtonDown(0) && CanChop != false)
+        {
+            StartCoroutine("MyMethod");
         }
     }
 
@@ -23,10 +37,19 @@ public class PlayerInteract : MonoBehaviour
             ObjectColliding = col.gameObject;
             Debug.Log(ObjectColliding);
         }
+
+        if( col.gameObject.tag == "Tree")
+        {
+            Tree = col.gameObject;
+            
+            CanChop = true;
+            Debug.Log("Can Chop");
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         ObjectColliding = null;
+        CanChop = false;
     }
 }
