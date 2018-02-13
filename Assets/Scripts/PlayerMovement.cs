@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
-    public float PlayerSpeed= 10f;
+    public float PlayerSpeed = 10f;
+    public float JumpSpeed = 10f;
 
     private Rigidbody2D rb2d;
 	
@@ -14,11 +15,13 @@ public class PlayerMovement : MonoBehaviour {
 	}
 	
 	
-	void Update ()
+	void FixedUpdate ()
     {
-        float moveHorizontal = Input.GetAxis("Horizaontal");
+        float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
+        Vector2 jump = new Vector2(0,moveVertical);
         rb2d.AddForce(movement * PlayerSpeed);
+        rb2d.AddForce(jump * JumpSpeed);
     }
 }
