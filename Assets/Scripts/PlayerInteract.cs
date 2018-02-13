@@ -6,21 +6,27 @@ public class PlayerInteract : MonoBehaviour
 {
     private bool Des = false;
 
-	void Start ()
-    {
-		
-	}
+    GameObject ObjectColliding;
 	
 	void Update ()
     {
-        
+        if(Input.GetKeyDown("e") && ObjectColliding != null)
+        {
+            Destroy(ObjectColliding);
+        }
     }
 
-    private void OnCollisionEnter2D (Collision2D col)
+    private void OnCollisionEnter2D(Collision2D col)
     {
-        if(col.gameObject.tag == "Chest")
+        if (col.gameObject.tag == "Chest")
         {
-            Destroy (col.gameObject);
+            ObjectColliding = col.gameObject;
+            Debug.Log(ObjectColliding);
         }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        ObjectColliding = null;
     }
 }
