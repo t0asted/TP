@@ -15,16 +15,10 @@ public class PlayerMovement : MonoBehaviour {
 	}
 	
 	
-	void FixedUpdate ()
+	void Update ()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
-        
-
-        if (Input.GetKeyDown (KeyCode.Space))
-        {
-            moveVertical *= JumpSpeed;
-        }
 
 
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
